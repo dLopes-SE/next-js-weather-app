@@ -1,17 +1,32 @@
-"use client"
+"use client";
 
-import { Button, Link, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, Navbar as NavbarUi } from "@nextui-org/react"
+import {
+	Button,
+	Link,
+	NavbarBrand,
+	NavbarContent,
+	NavbarItem,
+	NavbarMenu,
+	NavbarMenuToggle,
+	Navbar as NavbarUi,
+} from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const navItems = [
-  { title: "Example", link: "/example" },
-  { title: "About", link: "/about"}
-]
+	{ title: "Example", link: "/example" },
+	{ title: "About", link: "/about" },
+];
+
+const IsActivePage = (link : string) => {
+	return link === usePathname();
+}
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  return (
+	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+	return (
 		<NavbarUi
 			isBordered
 			className="bg-white"
@@ -27,36 +42,40 @@ export default function Navbar() {
 			</NavbarContent>
 
 			<NavbarContent className="sm:hidden pr-3" justify="center">
-				<NavbarBrand>
-					<Image
-						className="rounded-none"
-						src="/WeatherLogo.svg"
-						alt="Vercel logomark"
-						width={30}
-						height={30}
-					/>
-					<p className="text-black font-bold text-xl ml-2">Weather App</p>
-				</NavbarBrand>
+				<Link href="/">
+					<NavbarBrand>
+						<Image
+							className="rounded-none"
+							src="/WeatherLogo.svg"
+							alt="Vercel logomark"
+							width={30}
+							height={30}
+						/>
+						<p className="text-black font-bold text-xl ml-2">Weather App</p>
+					</NavbarBrand>
+				</Link>
 			</NavbarContent>
 
 			<NavbarContent className="hidden sm:flex" justify="start">
-				<NavbarBrand>
-					<Image
-						className="rounded-none dark:invert"
-						src="/WeatherLogo.svg"
-						alt="Weather App logomark"
-						width={30}
-						height={30}
-					/>
-					<p className="text-black font-bold text-xl ml-2">Weather App</p>
-				</NavbarBrand>
+				<Link href="/">
+					<NavbarBrand>
+						<Image
+							className="rounded-none dark:invert"
+							src="/WeatherLogo.svg"
+							alt="Weather App logomark"
+							width={30}
+							height={30}
+						/>
+						<p className="text-black font-bold text-xl ml-2">Weather App</p>
+					</NavbarBrand>
+				</Link>
 			</NavbarContent>
 
 			{/* Main Menu */}
 			<NavbarContent className="hidden sm:flex gap-12" justify="center">
 				{navItems.map((item) => (
-					<NavbarItem key={item.title}>
-						<Link href={item.link} className="text-lg text-black font-medium">
+					<NavbarItem key={item.title} isActive = {IsActivePage(item.link)}>
+						<Link href={item.link} color={IsActivePage(item.link) ? "primary" : "foreground"} className="text-lg font-medium">
 							{item.title}
 						</Link>
 					</NavbarItem>
