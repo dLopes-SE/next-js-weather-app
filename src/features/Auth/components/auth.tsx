@@ -1,36 +1,56 @@
 "use client"
 
-import { Form } from "@nextui-org/react";
-import { useState } from "react";
+import { Button, Form } from "@nextui-org/react";
+import { FormEvent, RefObject, useRef } from "react";
 import Login from "./login";
 
 interface AuthProps {
   mode: "login" | "signup";
-  externalSubmitHandler?: (e: React.FormEvent<HTMLFormElement>) => void;
+  submitRef?: RefObject<(() => void) | null>;
 }
 
-const Auth: React.FC<AuthProps> = ({ mode, externalSubmitHandler }) => {
-  // Used to define the internal handler (which can be submitted by a login or signup)
-  const [internalSubmitHandler, setInternalSubmitHandler] = useState(() => (e: React.FormEvent<HTMLFormElement>) => e.preventDefault());
+const Auth = ({ mode, submitRef }: AuthProps ) => {
+	const formRef = useRef<HTMLFormElement | null>(null);
+	let authSubmitHandler: ((e: FormEvent<HTMLFormElement>) => void) | null = null;
 
-  // Define which handler to pass
-  const onSubmit = externalSubmitHandler || internalSubmitHandler;
+	const registerSubmitHandler = (handler: (e: FormEvent<HTMLFormElement>) => void) => {
+    authSubmitHandler = handler;
+  };
+
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+		console.log("im in handlesubmit")
+
+    if (authSubmitHandler) {
+      authSubmitHandler(e); // Pass the event to the Auth handler
+    } else {
+      console.warn("No submit handler registered from Auth.");
+    }
+  };
+
+	// Assign the submit function to the submitRef during render
+  if (submitRef) {
+    submitRef.current = () => {
+      formRef.current?.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    };
+  }
 
   return (
 		<div
 			className="bg-gray-200"
 			style={
-				externalSubmitHandler === undefined
-					? { marginTop: "10rem", minHeight: "100vh"}
+				submitRef === undefined
+					? { marginTop: "10rem", minHeight: "100vh" }
 					: {}
 			}
 		>
-			<Form onSubmit={onSubmit} className="items-center">
+			<Form ref={formRef} onSubmit={handleSubmit} className="items-center">
 				{mode === "login" ? (
-					<Login setSubmitHandler={setInternalSubmitHandler} />
+					<Login registerSubmitHandler={registerSubmitHandler} />
 				) : (
 					<div>SignUp</div>
 				)}
+				{!submitRef && <Button type="submit">Sign in</Button>}
 			</Form>
 		</div>
 	);

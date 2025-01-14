@@ -1,5 +1,6 @@
 "use client";
 
+import LoginModal from "@/features/Auth/components/loginModal";
 import {
 	Button,
 	Link,
@@ -9,6 +10,7 @@ import {
 	NavbarMenu,
 	NavbarMenuToggle,
 	Navbar as NavbarUi,
+	useDisclosure,
 } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
@@ -25,8 +27,10 @@ const IsActivePage = (link : string) => {
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+	const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
 	return (
+
 		<NavbarUi
 			isBordered
 			className="bg-white"
@@ -96,13 +100,13 @@ export default function Navbar() {
 			<NavbarContent justify="end">
 				<NavbarItem>
 					<Button
-						as={Link}
 						className="bg-indigo-500 text-white font-bold"
-						href="#"
 						variant="flat"
+						onPress={onOpen}
 					>
-						Sign Up
+						Sign In
 					</Button>
+					<LoginModal isOpen={isOpen} onOpenChange={onOpenChange} />
 				</NavbarItem>
 			</NavbarContent>
 		</NavbarUi>
