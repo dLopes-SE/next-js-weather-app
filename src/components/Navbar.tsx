@@ -11,8 +11,8 @@ import {
 	NavbarMenuToggle,
 	Navbar as NavbarUi,
 	useDisclosure,
-} from "@nextui-org/react";
-import { Image } from "@nextui-org/react";
+} from "@heroui/react";
+import { Image } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import React from "react";
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Form } from "@nextui-org/react";
+import { Button, Form } from "@heroui/react";
 import { FormEvent, RefObject, useRef } from "react";
 import Login from "./login";
 

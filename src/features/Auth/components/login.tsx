@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect } from "react";
-import { Checkbox, Input, Link } from "@nextui-org/react";
+import { Checkbox, Input, Link } from "@heroui/react";
 
 interface LoginProps {
   registerSubmitHandler: (handler: (e: FormEvent<HTMLFormElement>) => void) => void;
