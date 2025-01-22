@@ -1,7 +1,7 @@
-import Auth from "@/features/Auth/components/auth";
+import LoginForm from "@/features/Auth/components/loginForm";
 
 export default function Login() {
   return (
-    <Auth mode="login" />
+    <LoginForm />
   );
 };

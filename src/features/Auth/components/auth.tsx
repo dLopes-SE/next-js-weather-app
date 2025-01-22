@@ -2,7 +2,7 @@
 
 import { Button, Form } from "@heroui/react";
 import { FormEvent, RefObject, useRef } from "react";
-import Login from "./login";
+import LoginForm from "./loginForm";
 
 interface AuthProps {
   mode: "login" | "signup";
@@ -46,7 +46,7 @@ const Auth = ({ mode, submitRef }: AuthProps ) => {
 		>
 			<Form ref={formRef} onSubmit={handleSubmit} className="items-center">
 				{mode === "login" ? (
-					<Login registerSubmitHandler={registerSubmitHandler} />
+					<LoginForm registerSubmitHandler={registerSubmitHandler} />
 				) : (
 					<div>SignUp</div>
 				)}

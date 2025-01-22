@@ -1,6 +1,6 @@
 "use client";
 
-import LoginModal from "@/features/Auth/components/loginModal";
+// import LoginModal from "@/features/Auth/components/loginModal";
 import {
 	Button,
 	Link,
@@ -106,7 +106,7 @@ export default function Navbar() {
 					>
 						Sign In
 					</Button>
-					<LoginModal isOpen={isOpen} onOpenChange={onOpenChange} />
+					{/* <LoginModal isOpen={isOpen} onOpenChange={onOpenChange} /> */}
 				</NavbarItem>
 			</NavbarContent>
 		</NavbarUi>
