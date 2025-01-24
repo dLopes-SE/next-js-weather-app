@@ -21,13 +21,13 @@ const navItems = [
 	{ title: "About", link: "/about" },
 ];
 
-const IsActivePage = (link : string) => {
+const IsActivePage = (link: string) => {
 	return link === usePathname();
 }
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-	const {isOpen, onOpen, onOpenChange} = useDisclosure();
+	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
 	return (
 
@@ -37,6 +37,7 @@ export default function Navbar() {
 			maxWidth="2xl"
 			isMenuOpen={isMenuOpen}
 			onMenuOpenChange={setIsMenuOpen}
+			style={{maxHeight: 'var(--navbar-height)'}}
 		>
 			<NavbarContent className="sm:hidden" justify="start">
 				<NavbarMenuToggle
@@ -78,7 +79,7 @@ export default function Navbar() {
 			{/* Main Menu */}
 			<NavbarContent className="hidden sm:flex gap-12" justify="center">
 				{navItems.map((item) => (
-					<NavbarItem key={item.title} isActive = {IsActivePage(item.link)}>
+					<NavbarItem key={item.title} isActive={IsActivePage(item.link)}>
 						<Link href={item.link} color={IsActivePage(item.link) ? "primary" : "foreground"} className="text-lg font-medium">
 							{item.title}
 						</Link>
