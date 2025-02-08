@@ -33,10 +33,11 @@ const LoginForm = () => {
 				variant="bordered"
 				name="password"
 			/>
-			<div className="flex py-3 px-5 justify-between w-full">
+			<div className="flex w-full">
 				<Checkbox
 					classNames={{
-						label: "text-small",
+						label: "text-small m-0",
+						base: "m-0"
 					}}
 				>
 					Remember me
